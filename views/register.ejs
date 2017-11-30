@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+    <form method="post">
+
+      <div class="firstname input-field">
+        <input type="text" name="firstName" placeholder="First Name">
+      </div>
+
+      <div class="username input-field">
+        <input type="text" name="userName" placeholder="Username">
+      </div>
+
+      <div class="input-field">
+        <input type="email" name="email" placeholder="Email" >
+      </div>
+
+      <div class="password input-field">
+        <input type="text" name="password" placeholder="Password">
+      </div>
+
+      <div class="password input-field">
+        <input type="text" name="passwordConf" placeholder="Confirm Password">
+      </div>
+
+      <button type="submit" id="submit" name="submit" value="Register">Register</button>
+
+      <a class="link" href="/login">Already registered?</a>
+      <a class="link" href="/">Home</a>
+
+    </form>
+
+  </body>
+</html>

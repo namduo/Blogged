@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+    <form method="post">
+
+      <div class="username">
+        <input type="text" name="userName" placeholder="Username">
+      </div>
+
+      <div class="password">
+        <input type="password" name="password" placeholder="Password">
+      </div>
+
+
+      <button type="submit" id="submit" name="submit">Log in</button>
+
+      <a class="link" href="/register">Not registered?</a>
+
+      <a class="link" href="/">Home</a>
+
+    </form>
+
+  </body>
+</html>
