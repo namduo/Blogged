@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <!-- <meta name="posts" content="<%= posts %>"> -->
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Logged in as <strong><%= username %></strong></p>
+
+    <form method="post" enctype="multipart/form-data">
+
+      <input type="hidden" value="<%= userId %>" name="userId"/>
+      <input type="text" name="postTitle" placeholder="title">
+      <textarea name="postContent" id="" cols="30" rows="10"></textarea>
+      <input name="postPicture" type="file">
+      <button type="submit">add</button>
+
+    </form>
+
+
+
+    <nav>
+      <ul>
+        <li><a href="/userPage">Back to User Page</a></li>
+        <li><a href="/logout">Log out</a></li>
+      </ul>
+    </nav>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="/javascripts/main.js" charset="utf-8"></script>
+  </body>
+</html>

@@ -3,13 +3,6 @@ require('mongoose-type-email');
 
 var bcrypt = require('bcrypt');
 
-
-// Mongoose connection
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/Blogged')
-var db = mongoose.connect();
-
-
 var UserSchema = new mongoose.Schema({
 
 	firstName: {

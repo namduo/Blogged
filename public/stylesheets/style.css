@@ -4,4 +4,8 @@
 body {
   padding: 2em; }
 
+textarea {
+  min-height: 100px;
+  min-width: 200px; }
+
 /*# sourceMappingURL=style.css.map */

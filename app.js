@@ -10,11 +10,24 @@ var session = require('express-session');
 var index = require('./routes/index');
 var register = require('./routes/register');
 var login = require('./routes/login');
-var user = require('./routes/user');
+
+var userPage = require('./routes/userPage');
+var allBlogs = require('./routes/allBlogs');
+var userBlog = require('./routes/userBlog');
+
+var addBlog = require('./routes/addBlog');
 var logout = require('./routes/logout');
+
+// API
+
 
 var app = express();
 
+
+// Mongoose connection
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/Blogged')
+var db = mongoose.connect();
 
 // Session for tracking logging
 app.use(session({
@@ -44,8 +57,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/register', register);
 app.use('/login', login);
-app.use('/user', user);
+
+app.use('/userPage', userPage);
+app.use('/allBlogs', allBlogs);
+
+app.use('/userBlog', userBlog);
+app.use('/addBlog', addBlog);
 app.use('/logout', logout);
+
+// API
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
