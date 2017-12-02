@@ -1,0 +1,49 @@
+body {
+	padding: 0;
+	margin: 0;
+}
+
+
+.container {
+	width: 100%;
+	border: dashed #00C8FF 1px;
+}
+
+.row {
+	max-width: 960px;
+	// border: dashed red 1px;
+	padding: 1em;
+	margin: auto;
+}
+
+.column {
+	border: dashed blue 1px;
+}
+
+.grid-2-col {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+
+.align-center {
+	display: flex;
+	justify-content: center;
+}
+
+// TYPOGRAPHY
+
+.ta-center {
+	text-align: center;
+}
+
+// FORM
+form > input {
+	text-align: center;
+}
+
+// NAV
+nav ul {
+	display: flex;
+	justify-content: space-around;
+}

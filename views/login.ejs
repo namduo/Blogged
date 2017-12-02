@@ -5,27 +5,32 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <div class="container">
 
-    <form method="post">
-
-      <div class="username">
-        <input type="text" name="userName" placeholder="Username">
+      <div class="row ta-center">
+        <h1><%= title %></h1>
+        <p>Welcome to <%= title %></p>
       </div>
 
-      <div class="password">
-        <input type="password" name="password" placeholder="Password">
+      <div class="row align-center">
+        <form method="post">
+          <input class="" type="text" name="userName" placeholder="Username">
+          <input class="" type="password" name="password" placeholder="Password">
+          <button class="" type="submit" id="submit" name="submit">Log in</button>
+        </form>
       </div>
 
+      <div class="row ta-center">
+        <a class="link" href="/register">Not registered?</a>
+        <a class="link" href="/">Home</a>
+      </div>
 
-      <button type="submit" id="submit" name="submit">Log in</button>
+    </div>
 
-      <a class="link" href="/register">Not registered?</a>
 
-      <a class="link" href="/">Home</a>
 
-    </form>
+
+
 
   </body>
 </html>

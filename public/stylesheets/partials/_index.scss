@@ -1,0 +1,26 @@
+body {
+	padding: 0;
+	margin: 0;
+}
+
+
+.container {
+	width: 100%;
+	border: dashed #00C8FF 1px;
+}
+
+.row {
+	max-width: 960px;
+	border-left: dashed red 1px;
+	border-right: dashed red 1px;
+	margin: auto;
+}
+
+.column {
+	border: dashed blue 1px;
+}
+
+.grid-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}

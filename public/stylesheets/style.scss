@@ -1,12 +1,7 @@
-* {
-	box-sizing: border-box;
-}
+@import "partials/normalize";
+@import "partials/settings";
 
-body {
-	padding: 2em;
-}
-
-textarea {
-	min-height: 100px;
-	min-width: 200px;
-}
+// PAGES
+@import "partials/addBlog";
+@import "partials/index";
+@import "partials/userPage";

@@ -18,23 +18,16 @@ router.get('/', requiresLogin, function(req, res, next) {
     return err;
   } else {
 
-    // DATA BASE QUERY
-    Post.find({ user_id: req.session.userId })
-    .select('postPicture')
-    .exec(function(err, posts) {
-      if (err) return next(err);
-      res.render('addBlog', {
-        title: 'Add Blog',
-        username: userName,
-        userId: userId,
-        posts: posts
-      });
+    res.render('addBlog', {
+      title: 'Add Blog',
+      username: userName,
+      userId: userId
     });
-
   }
 
-
 });
+
+
 
 
 // MULTER

@@ -16,6 +16,7 @@ var allBlogs = require('./routes/allBlogs');
 var userBlog = require('./routes/userBlog');
 
 var addBlog = require('./routes/addBlog');
+var getBlog = require('./routes/getBlog');
 var logout = require('./routes/logout');
 
 // API
@@ -63,6 +64,7 @@ app.use('/allBlogs', allBlogs);
 
 app.use('/userBlog', userBlog);
 app.use('/addBlog', addBlog);
+app.use('/getBlog', getBlog);
 app.use('/logout', logout);
 
 // API

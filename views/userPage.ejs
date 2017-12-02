@@ -5,17 +5,27 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <h2>Welcome <%= username %></h2>
+    <div class="container">
+      <div class="row ta-center">
+        <h1><%= title %></h1>
+        <h2>Welcome <%= username %></h2>
+      </div>
 
-    <nav>
-      <ul>
-        <li><a href="/allBlogs">All Blog</a></li>
-        <li><a href="/userBlog">Your Blog</a></li>
-        <li><a href="/addBlog">Add A Post</a></li>
-        <li><a href="/logout">Log out</a></li>
-      </ul>
-    </nav>
+      <div class="row">
+        <nav>
+          <ul>
+            <li><a href="/userBlog">Your Blog</a></li>
+            <li><a href="/allBlogs">All Blog</a></li>
+            <li><a href="/addBlog">Add A Post</a></li>
+            <li><a href="/logout">Log out</a></li>
+          </ul>
+        </nav>
+      </div>
+
+    </div>
+
+
+
 
 
   </body>
