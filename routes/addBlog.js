@@ -11,6 +11,7 @@ router.get('/', requiresLogin, function(req, res, next) {
 
   var userName = req.session.userName;
   var userId = req.session.userID;
+  var userEmail = req.session.userEmail
 
   if (err) {
     var err = new Error('Loggin required');
@@ -20,17 +21,16 @@ router.get('/', requiresLogin, function(req, res, next) {
 
     res.render('addBlog', {
       title: 'Add Blog',
-      username: userName,
-      userId: userId
+      userName: userName,
+      userId: userId,
+      userEmail: userEmail
     });
   }
 
 });
 
-
-
-
 // MULTER
+
 // STORAGE ENGINE
 var storage = multer.diskStorage({
   destination: './public/uploads/',
@@ -38,6 +38,7 @@ var storage = multer.diskStorage({
     callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   }
 });
+
 // MULTER UPLOAD
 var upload = multer({
   storage: storage
@@ -46,11 +47,10 @@ var upload = multer({
 // BLOG POST FORM
 router.post('/', upload, function(req, res, next) {
 
-  var userName = req.session.userName;
-  var userId = req.session.userID;
-
   var postData = {
     userId: req.body.userId,
+    userName: req.body.userName,
+    userEmail: req.body.userEmail,
     postPicture: req.file.filename,
     postTitle: req.body.postTitle,
     postContent: req.body.postContent
@@ -63,11 +63,7 @@ router.post('/', upload, function(req, res, next) {
       return next(err)
     } else {
       console.log(postData);
-      res.render('addBlog', {
-        title: 'Add Blog',
-        username: userName,
-        userId: userId
-      });
+      res.redirect('/addBlog');
     }
   });
 

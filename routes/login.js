@@ -23,6 +23,7 @@ router.post('/', function(req, res, next) {
 
       req.session.userID = result._id;
       req.session.userName = result.userName;
+      req.session.userEmail = result.email;
       req.session.loggedIn = true;
       res.redirect('/userPage');
     });

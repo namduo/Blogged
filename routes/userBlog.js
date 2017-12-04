@@ -15,7 +15,7 @@ router.get('/', requiresLogin, function(req, res, next) {
   } else {
     res.render('userBlog', {
       title: 'User Blog',
-      username: userName 
+      userName: userName 
     });
   }
 });
