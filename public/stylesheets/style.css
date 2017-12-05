@@ -408,7 +408,7 @@ body {
 
 .grid-2-col {
   display: grid;
-  grid-template-columns: 1fr 1fr; }
+  grid-template-columns: 1.5fr 1fr; }
 
 .align-center {
   display: flex;
@@ -424,9 +424,13 @@ nav ul {
   display: flex;
   justify-content: space-around; }
 
-input, textarea, button[type="submit"] {
+input, button[type="submit"] {
   display: block;
   margin-bottom: 1em; }
+
+textarea {
+  margin: 0;
+  width: 100%; }
 
 .column {
   padding: 1em; }

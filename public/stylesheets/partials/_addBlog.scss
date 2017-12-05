@@ -1,10 +1,16 @@
 
 
 
-input, textarea, button[type="submit"] {
+input, button[type="submit"] {
 	display: block;
 	margin-bottom: 1em;
 }
+
+textarea {
+	margin: 0;
+	width: 100%;
+}
+
 
 .column {
 	padding: 1em;

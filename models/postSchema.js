@@ -8,7 +8,8 @@ var PostSchema = new mongoose.Schema({
 		type: String
 	},
 	userEmail: {
-		type: String
+		type: String,
+		unique: true
 	},
 	postPicture: {
 		type: String
