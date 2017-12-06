@@ -8,28 +8,46 @@ $.ajax({
 		var postListItem = '';
 
 		for (var i = 0; i < data.length; i++) {
+
+			postListItem += '<div>';
 			// IMAGE
 			postListItem += '<img src=" ' + '/uploads/' + data[i].postPicture + ' "class="preview-postPicture" alt="">';
 			// TITLE
 			postListItem += '<li><h3>' + data[i].postTitle + '</h3>';
-      // SHORT CONTENT
+      // SHORTEN DESCRIPTION
 			if ( data[i].postContent.length > 50 ) {
 				postListItem += '<p>' + data[i].postContent.substring(0, 50) + '... ' + '</p>';
 			} else {
 				postListItem += '<p>' + data[i].postContent + '</p>';
 			}
 			// DATE
-			postListItem += '<p>' + data[i].published + '</p></li>';
-
+			postListItem += '<p>' + data[i].published + '</p>';
+			// DELETE
+			postListItem += '</li><a href="#" class="removeBlog" data-_id="' + data[i]._id + '">Delete</a></div>';
 		}
-		
-		// APPEND
+
 		appendData('#user-post-list', postListItem)
 	}
 });
 
+// DELETE
+$('body').on('click', '.removeBlog', function() {
 
-var userName = [];
+	var ele = $(this);
+
+  $.ajax('/removeBlog/' + ele.attr('data-_id'), {
+    method: "DELETE",
+
+    success: function(data){
+			ele.parent().remove();
+    },
+    error: function(error){
+        console.log('error: ' + error)
+    }
+  });
+
+});
+
 
 // GET ALL BLOGS
 $.ajax({
@@ -42,64 +60,38 @@ $.ajax({
 });
 
 
-
+var userName = {};
+var userPosts = [];
 
 // LOOP THROUGH DATA
 function postLoop(data) {
 
 	for (var i = 0; i < data.length; i++) {
-		addUserName(userName, data[i].userName);
+		addblogList(userName, data[i].userName, data[i].postTitle);
 	}
-	// LOOP USERNAME ARRAY AND PRINT
-	var userNameList = '';
-	for (var i = 0; i < userName.length; i++) {
-		userNameList += '<li><h3>' + userName[i] + '</h3></li>';
-	}
-	// APPEND
-	appendData('#all-blog-list', userNameList)
+
+	Object.keys(userName).forEach(function(user) {
+		userNameList = '<li><h3>' + user + '</h3>';
+		// LOOP
+		userName[user].forEach(function(post) {
+			userNameList += '<p>' + post + '</p></li>';
+		});
+		appendData('#all-blog-list', userNameList);
+	});
+
+	console.log(userName);
+
 }
 
-
-// ADD USERNAME TO ARRAY IF DOESN'T ALREADY EXIST
-function addUserName(array, user) {
-	if (array.indexOf(user) === -1 ) {
-		array.push(user);
+// ADD USERNAME ARRAY TO OBJECT IF USER DOESN'T ALREADY EXIST
+function addblogList(object, user, title) {
+	if (!object[user]) {
+		object[user] = [];
 	}
+	object[user].push(title);
 }
 
 // APPEND CONTENT TO SELECTR
 function appendData(idSelector, content) {
 	$(idSelector).append(content);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-// // LOOP THROUGH BLOGS ARRAY
-// for (var i = 0; i < blogs.length; i++) {
-//
-//
-//
-//
-// 	$.ajax({
-// 		url: '/API_getAllBlogs',
-// 		type: 'GET',
-// 		dataType: 'JSON',
-// 		success: function(data){
-// 			console.log(data);
-//
-// 			// $('#user-post-list').append();
-// 		}
-// 	});
-//
-//
-//
-// }

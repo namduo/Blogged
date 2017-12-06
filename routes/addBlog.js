@@ -4,7 +4,6 @@ var Post = require('../models/postSchema.js')
 var requiresLogin = require('../functions/requiresLogin.js')
 var path = require('path')
 var multer = require('multer')
-var request = require('request')
 
 /* GET /postblog */
 router.get('/', requiresLogin, function(req, res, next) {
@@ -46,6 +45,12 @@ var upload = multer({
 
 // BLOG POST FORM
 router.post('/', upload, function(req, res, next) {
+
+  // NO IMAGE
+  if (!req.file) {
+    req.file = {};
+    req.file.filename = '';
+  }
 
   var postData = {
     userId: req.body.userId,
