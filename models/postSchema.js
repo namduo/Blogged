@@ -1,4 +1,8 @@
 var mongoose = require('mongoose');
+var moment = require('moment');
+
+var defaultDate = Date.now();
+var formatDate = moment(defaultDate).format("dddd, MMMM Do YYYY, h:mm:ss a");
 
 var PostSchema = new mongoose.Schema({
 	userId: {
@@ -9,7 +13,6 @@ var PostSchema = new mongoose.Schema({
 	},
 	userEmail: {
 		type: String,
-		unique: true
 	},
 	postPicture: {
 		type: String
@@ -23,7 +26,7 @@ var PostSchema = new mongoose.Schema({
 		trim: true
 	},
 	published: {
-		type: Date, default: Date.now
+		type: String, default: formatDate
 	}
 });
 

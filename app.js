@@ -16,7 +16,7 @@ var allBlogs = require('./routes/allBlogs');
 var userBlog = require('./routes/userBlog');
 
 var addBlog = require('./routes/addBlog');
-var removeBlog = require('./routes/removeBlog');
+var API_removeBlog = require('./routes/API_removeBlog');
 var API_getBlog = require('./routes/API_getBlog');
 var API_getAllBlogs = require('./routes/API_getAllBlogs');
 
@@ -61,16 +61,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/register', register);
 app.use('/login', login);
+app.use('/logout', logout);
 
 app.use('/userPage', userPage);
 app.use('/allBlogs', allBlogs);
 app.use('/userBlog', userBlog);
 
 app.use('/addBlog', addBlog);
-app.use('/removeBlog', removeBlog);
+app.use('/API_removeBlog', API_removeBlog);
 app.use('/API_getBlog', API_getBlog);
 app.use('/API_getAllBlogs', API_getAllBlogs);
-app.use('/logout', logout);
+
 
 // API
 

@@ -7,6 +7,8 @@ var requiresLogin = require('../functions/requiresLogin.js')
 router.get('/', requiresLogin, function(req, res, next) {
 
   var userName = req.session.userName;
+  var userId = req.session.userID;
+  var userEmail = req.session.userEmail
 
   if (err) {
     var err = new Error('Loggin required');
@@ -15,7 +17,9 @@ router.get('/', requiresLogin, function(req, res, next) {
   } else {
     res.render('userPage', {
       title: 'User Page',
-      userName: userName
+      userName: userName,
+      userId: userId,
+      userEmail: userEmail
     });
   }
 });
