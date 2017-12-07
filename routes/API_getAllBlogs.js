@@ -9,6 +9,7 @@ var path = require('path')
 router.get('/', requiresLogin, function(req, res, next) {
 
   var userName = req.session.userName;
+  var localUserId = req.session.userID;
 
   if (err) {
     var err = new Error('Loggin required');
@@ -16,12 +17,20 @@ router.get('/', requiresLogin, function(req, res, next) {
     return err;
   } else {
 
-    // DATA BASE QUERY
     Post.find({ })
-    // .select('postPicture')
     .exec(function(err, posts) {
       if (err) return next(err);
-      res.json(posts);
+
+      var otherPosts = [];
+
+      posts.forEach(function(post) {
+        // ONLY SEND POSTS THAT AREN'T === TO CURRENT USER SESSION
+        if (post.userId != localUserId) {
+          otherPosts.push(post);
+        }
+      });
+
+      res.json(otherPosts);
     });
 
   }

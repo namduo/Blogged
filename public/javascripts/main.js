@@ -1,7 +1,7 @@
 
 // GET BLOGS FOR SPECIFIC USER
 $.ajax({
-	url: '/API_getBlog',
+	url: '/API_getBlog/' + $('.var-user-id').attr('data-var-user-id'),
 	type: 'GET',
 	dataType: 'JSON',
 	success: function(data){
@@ -38,7 +38,6 @@ $.ajax({
 });
 
 
-
 // DELETE API
 $('body').on('click', '.removeBlog', function() {
 
@@ -51,7 +50,7 @@ $('body').on('click', '.removeBlog', function() {
 			ele.parent().remove();
     },
     error: function(error){
-        console.log('error: ' + error)
+      console.log('error: ' + error)
     }
   });
 
@@ -76,12 +75,15 @@ var userPosts = [];
 function postLoop(data) {
 
 	for (var i = 0; i < data.length; i++) {
-		addBlogList(userName, data[i].userName, data[i].postTitle);
+		addBlogList(userName, data[i].userName, data[i].postTitle, data[i].published, data[i].userId);
 	}
 
+
 	Object.keys(userName).forEach(function(user) {
-		userNameList = '<li><h3>' + user + '</h3>';
-		// LOOP
+
+		userNameList = '<li><a href="/shareBlog/' + userName[user][0][2] + '"><h3>' + user + '</h3></a>';
+
+		// LOOP THROUGH POSTS
 		userName[user].forEach(function(post) {
 			userNameList += '<p>' + post + '</p></li>';
 		});
@@ -89,16 +91,14 @@ function postLoop(data) {
 		appendData('#all-blog-list', userNameList);
 	});
 
-	console.log(userName);
-
 }
 
 // ADD USERNAME ARRAY TO OBJECT IF USER DOESN'T ALREADY EXIST
-function addBlogList(object, user, title) {
+function addBlogList(object, user, title, date, userId) {
 	if (!object[user]) {
 		object[user] = [];
 	}
-	object[user].push(title);
+	object[user].unshift([title, date, userId]);
 }
 
 // APPEND CONTENT TO SELECTR

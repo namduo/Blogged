@@ -7,22 +7,26 @@ var bodyParser = require('body-parser');
 var sassMiddleware = require('node-sass-middleware');
 var session = require('express-session');
 
+// ROUTES
 var index = require('./routes/index');
 var register = require('./routes/register');
 var login = require('./routes/login');
+var logout = require('./routes/logout');
 
+var userBlog = require('./routes/userBlog');
+var addBlog = require('./routes/addBlog');
 var userPage = require('./routes/userPage');
 var allBlogs = require('./routes/allBlogs');
-var userBlog = require('./routes/userBlog');
+var shareBlog = require('./routes/shareBlog');
 
-var addBlog = require('./routes/addBlog');
+
+// API ROUTES
 var API_removeBlog = require('./routes/API_removeBlog');
 var API_getBlog = require('./routes/API_getBlog');
 var API_getAllBlogs = require('./routes/API_getAllBlogs');
 
-var logout = require('./routes/logout');
 
-// API
+
 
 
 var app = express();
@@ -66,14 +70,15 @@ app.use('/logout', logout);
 app.use('/userPage', userPage);
 app.use('/allBlogs', allBlogs);
 app.use('/userBlog', userBlog);
-
 app.use('/addBlog', addBlog);
+app.use('/shareBlog', shareBlog);
+
 app.use('/API_removeBlog', API_removeBlog);
 app.use('/API_getBlog', API_getBlog);
 app.use('/API_getAllBlogs', API_getAllBlogs);
 
 
-// API
+
 
 
 // catch 404 and forward to error handler

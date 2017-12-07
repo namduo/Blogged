@@ -6,9 +6,9 @@ var path = require('path')
 
 
 /* GET /postblog */
-router.get('/', requiresLogin, function(req, res, next) {
+router.get('/:id', requiresLogin, function(req, res, next) {
 
-  var userName = req.session.userName;
+  // var userName = req.session.userName;
 
   if (err) {
     var err = new Error('Loggin required');
@@ -17,8 +17,7 @@ router.get('/', requiresLogin, function(req, res, next) {
   } else {
 
     // DATA BASE QUERY
-    Post.find({ userId: req.session.userID })
-    // .select('postPicture')
+    Post.find({ userId: req.params.id })
     .exec(function(err, posts) {
       if (err) return next(err);
       res.json(posts);
