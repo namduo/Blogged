@@ -24,6 +24,7 @@ router.get('/', requiresLogin, function(req, res, next) {
       var otherPosts = [];
 
       posts.forEach(function(post) {
+        
         // ONLY SEND POSTS THAT AREN'T === TO CURRENT USER SESSION
         if (post.userId != localUserId) {
           otherPosts.push(post);

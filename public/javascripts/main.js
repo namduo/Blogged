@@ -5,30 +5,24 @@ $.ajax({
 	type: 'GET',
 	dataType: 'JSON',
 	success: function(data){
-
-
 		var postListItem = '';
 		var userBlog = '';
 
 		for (var i = 0; i < data.length; i++) {
 
 			// ADD BLOG PAGE
-			postListItem += '<div><img src="' + '/uploads/' + data[i].postPicture + '"class="preview-postPicture">';
+			postListItem += '<div>';
+			postListItem += createImgElement(data[i].postPicture,'preview-postPicture');
 			postListItem += '<li><h3>' + data[i].postTitle + '</h3>';
-				if ( data[i].postContent.length > 50 ) {
-					postListItem += '<p>' + data[i].postContent.substring(0, 50) + '... ' + '</p>';
-				} else {
-					postListItem += '<p>' + data[i].postContent + '</p>';
-				}
-			postListItem += '<p>' + data[i].published + '</p>';
+			postListItem += shortenDescription(data[i].postContent, 50);
+			postListItem += createPElement(data[i].published);
 			postListItem += '</li><a href="#" class="removeBlog" data-_id="' + data[i]._id + '">Delete</a></div>';
 
 			// USER BLOG PAGE
-			userBlog += '<div><img src="' + '/uploads/' + data[i].postPicture + '"class="userBlog-postPicture">';
+			userBlog += createImgElement(data[i].postPicture,'userBlog-postPicture');
 			userBlog += '<h3>' + data[i].postTitle + '</h3>';
-			userBlog += '<p>' + data[i].postContent + '</p>';
-			userBlog += '<p>' + data[i].published + '</p>';
-
+			userBlog += createPElement(data[i].postContent);
+			userBlog += createPElement(data[i].published);
 			userBlog += '</div>'
 		}
 
@@ -40,12 +34,10 @@ $.ajax({
 
 // DELETE API
 $('body').on('click', '.removeBlog', function() {
-
 	var ele = $(this);
 
   $.ajax('/API_removeBlog/' + ele.attr('data-_id'), {
     method: "DELETE",
-
     success: function(data){
 			ele.parent().remove();
     },
@@ -75,17 +67,19 @@ var userPosts = [];
 function postLoop(data) {
 
 	for (var i = 0; i < data.length; i++) {
-		addBlogList(userName, data[i].userName, data[i].postTitle, data[i].published, data[i].userId);
+		addBlogList(userName, data[i].userName, data[i].postPicture, data[i].postTitle, data[i].postContent, data[i].published, data[i].userId, data[i].postPicture);
 	}
-
 
 	Object.keys(userName).forEach(function(user) {
 
-		userNameList = '<li><a href="/shareBlog/' + userName[user][0][2] + '"><h3>' + user + '</h3></a>';
-
+		// USER
+		userNameList = '<li><a href="/shareBlog/' + userName[user][0][4] + '"><h3>' + user + '</h3></a>';
 		// LOOP THROUGH POSTS
 		userName[user].forEach(function(post) {
-			userNameList += '<p>' + post + '</p></li>';
+			userNameList += createImgElement(post[0],'all-blog-postPicture');
+			userNameList += '<h3>' + post[1] + '</h3>';
+			userNameList += shortenDescription(post[2], 100);
+			userNameList += createPElement(post[3]);
 		});
 
 		appendData('#all-blog-list', userNameList);
@@ -93,12 +87,33 @@ function postLoop(data) {
 
 }
 
+function createImgElement(source, imgClass) {
+	source = '<img src="'+ '/uploads/' + source +'" class="' + imgClass + '">';
+	return source;
+}
+
+// CREATE P ELEMENT
+function createPElement(content) {
+	content = '<p>' + content + '</p>';
+	return content;
+}
+
+// LIMIT DESCRIPTION
+function shortenDescription(description, maxChar) {
+	if ( description.length > 50 ) {
+		description = createPElement(description.substring(0, maxChar) + '... ');
+	} else {
+		description = createPElement(description);
+	}
+	return description;
+}
+
 // ADD USERNAME ARRAY TO OBJECT IF USER DOESN'T ALREADY EXIST
-function addBlogList(object, user, title, date, userId) {
+function addBlogList(object, user, picture, title, description, date, userId) {
 	if (!object[user]) {
 		object[user] = [];
 	}
-	object[user].unshift([title, date, userId]);
+	object[user].unshift([picture, title, description, date, userId]);
 }
 
 // APPEND CONTENT TO SELECTR
