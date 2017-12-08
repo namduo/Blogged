@@ -21,17 +21,16 @@ router.get('/', requiresLogin, function(req, res, next) {
     .exec(function(err, posts) {
       if (err) return next(err);
 
-      var otherPosts = [];
-
+      var otherUserPosts = [];
       posts.forEach(function(post) {
-        
+
         // ONLY SEND POSTS THAT AREN'T === TO CURRENT USER SESSION
         if (post.userId != localUserId) {
-          otherPosts.push(post);
+          otherUserPosts.push(post);
         }
       });
 
-      res.json(otherPosts);
+      res.json(otherUserPosts);
     });
 
   }

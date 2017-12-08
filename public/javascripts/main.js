@@ -9,25 +9,36 @@ $.ajax({
 		var userBlog = '';
 
 		for (var i = 0; i < data.length; i++) {
-
 			// ADD BLOG PAGE
 			postListItem += '<div>';
 			postListItem += createImgElement(data[i].postPicture,'preview-postPicture');
 			postListItem += '<li><h3>' + data[i].postTitle + '</h3>';
 			postListItem += shortenDescription(data[i].postContent, 50);
 			postListItem += createPElement(data[i].published);
-			postListItem += '</li><a href="#" class="removeBlog" data-_id="' + data[i]._id + '">Delete</a></div>';
+			postListItem += '</li><a href="#" class="removeBlog" data-_id="' + data[i]._id + '">Delete</a><a href="#" class="editBlog" data-_id="' + data[i]._id + '">Edit</a></div>';
 
 			// USER BLOG PAGE
+			userBlog += '<div>';
 			userBlog += createImgElement(data[i].postPicture,'userBlog-postPicture');
 			userBlog += '<h3>' + data[i].postTitle + '</h3>';
 			userBlog += createPElement(data[i].postContent);
 			userBlog += createPElement(data[i].published);
-			userBlog += '</div>'
+			userBlog += '</div>';
 		}
 
 		appendData('#userContainer', userBlog);
 		appendData('#user-post-list', postListItem);
+	}
+});
+
+
+// GET ALL BLOGS
+$.ajax({
+	url: '/API_getAllBlogs',
+	type: 'GET',
+	dataType: 'JSON',
+	success: function(posts){
+		postLoop(posts);
 	}
 });
 
@@ -48,15 +59,65 @@ $('body').on('click', '.removeBlog', function() {
 
 });
 
+// EDIT BUTTON
+$('body').on('click', '.editBlog', function() {
+	var ele = $(this);
 
-// GET ALL BLOGS
-$.ajax({
-	url: '/API_getAllBlogs',
-	type: 'GET',
-	dataType: 'JSON',
-	success: function(posts){
-		postLoop(posts);
-	}
+	$.ajax('/API_updateBlog/' + ele.attr('data-_id'), {
+		method: "GET",
+		success: function(data){
+
+			$('#inputTitle').val(data[0].postTitle);
+			$('#inputTextArea').text(data[0].postContent);
+			$('.actionButton').text('Update').attr('data-_id', data[0]._id);
+			$('.actionForm').attr('method', 'put');
+			$('.actionButton').after('<button class="cancelButton">Cancel Update</button>');
+
+		},
+		error: function(error){
+			console.log('error: ' + error)
+		}
+	});
+
+});
+
+// UPDATE BUTTON
+$('body').on('click', '.actionButton', function() {
+	var ele = $(this);
+
+	$.ajax('/API_updateBlog/' + ele.attr('data-_id'), {
+		method: "PUT",
+		success: function(data){
+
+			// UPDATE BLOG PAGE
+			var postListItem = '<div>';
+			postListItem += createImgElement(data[0].postPicture,'preview-postPicture');
+			postListItem += '<li><h3>' + data[0].postTitle + '</h3>';
+			postListItem += shortenDescription(data[0].postContent, 50);
+			postListItem += createPElement(data[0].published);
+			postListItem += '</li><a href="#" class="removeBlog" data-_id="' + data[0]._id + '">Delete</a><a href="#" class="editBlog" data-_id="' + data[0]._id + '">Edit</a></div>';
+
+			$('#inputTitle').val('');
+			$('#inputTextArea').text('');
+			$('.actionButton').text('Add');
+			$('.removeBlog').attr('method', 'post');
+			$('.cancelButton').remove();
+
+		},
+		error: function(error){
+			console.log('error: ' + error)
+		}
+	});
+
+});
+
+// CANCEL EDIT BUTTON
+$('body').on('click', '.cancelButton', function() {
+	$('#inputTitle').val('');
+	$('#inputTextArea').text('');
+	$('.actionButton').text('Add');
+	$('.removeBlog').attr('method', 'post');
+	$('.cancelButton').remove();
 });
 
 
@@ -71,11 +132,10 @@ function postLoop(data) {
 	}
 
 	Object.keys(userName).forEach(function(user) {
-
 		// USER
 		userNameList = '<li><a href="/shareBlog/' + userName[user][0][4] + '"><h3>' + user + '</h3></a>';
 		// LOOP THROUGH POSTS
-		userName[user].forEach(function(post) {
+		userName[user].slice(0, 3).forEach(function(post) {
 			userNameList += createImgElement(post[0],'all-blog-postPicture');
 			userNameList += '<h3>' + post[1] + '</h3>';
 			userNameList += shortenDescription(post[2], 100);

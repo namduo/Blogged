@@ -23,6 +23,7 @@ var shareBlog = require('./routes/shareBlog');
 // API ROUTES
 var API_removeBlog = require('./routes/API_removeBlog');
 var API_getBlog = require('./routes/API_getBlog');
+var API_updateBlog = require('./routes/API_updateBlog');
 var API_getAllBlogs = require('./routes/API_getAllBlogs');
 
 
@@ -75,6 +76,7 @@ app.use('/shareBlog', shareBlog);
 
 app.use('/API_removeBlog', API_removeBlog);
 app.use('/API_getBlog', API_getBlog);
+app.use('/API_updateBlog', API_updateBlog);
 app.use('/API_getAllBlogs', API_getAllBlogs);
 
 

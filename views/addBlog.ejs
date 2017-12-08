@@ -13,16 +13,16 @@
       <div class="row grid-2-col">
 
         <div class="column">
-          <form method="post" enctype="multipart/form-data">
+          <form class="actionForm" method="post" enctype="multipart/form-data">
 
             <input type="hidden" value="<%= userId %>" name="userId"/>
             <input type="hidden" value="<%= userName %>" name="userName"/>
             <input type="hidden" value="<%= userEmail %>" name="userEmail"/>
 
-            <input type="text" name="postTitle" placeholder="title">
-            <textarea name="postContent" id="" cols="30" rows="10"></textarea>
+            <input type="text" name="postTitle" id="inputTitle" placeholder="title">
+            <textarea name="postContent" id="inputTextArea" cols="30" rows="10" placeholder="add your blog"></textarea>
             <input name="postPicture" type="file">
-            <button type="submit">add</button>
+            <button type="submit" class="actionButton">add</button>
 
           </form>
         </div>
@@ -38,7 +38,8 @@
 
     <nav>
       <ul>
-        <li><a href="/userPage">Back to User Page</a></li>
+        <li><a href="/userBlog">View Your Blog</a></li>
+        <li><a href="/userPage">User Home</a></li>
         <li><a href="/logout">Log out</a></li>
       </ul>
     </nav>
