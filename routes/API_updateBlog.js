@@ -9,8 +9,6 @@ var multer = require('multer')
 /* GET /updateBlog */
 router.get('/:id', requiresLogin, function(req, res, next) {
 
-  // var userName = req.session.userName;
-
   if (err) {
     var err = new Error('Loggin required');
     res.send(err);
@@ -45,8 +43,13 @@ var upload = multer({
 
 
 /* PUT /updateBlog */
-router.put('/:id', requiresLogin, function(req, res, next) {
-  console.log('1');
+router.post('/:id', requiresLogin, upload, function(req, res, next) {
+
+  // NO IMAGE
+  if (!req.file) {
+    req.file = {};
+    req.file.filename = '';
+  }
 
   var postData = {
     userId: req.body.userId,
@@ -57,24 +60,19 @@ router.put('/:id', requiresLogin, function(req, res, next) {
     postContent: req.body.postContent
   }
 
-  console.log('2 ' + postData);
-
   if (err) {
     var err = new Error('Loggin required');
     res.send(err);
     return err;
   } else {
 
-    console.log('3');
-
     // DATA BASE QUERY
-    Post.findOneAndUpdate({ _id: req.body.id }, postData)
+    Post.findOneAndUpdate({ _id: req.params.id }, postData)
     .exec(function(err, posts) {
       if (err) return next(err);
       res.redirect('/addBlog');
     });
 
-    console.log('4');
   }
 
 });

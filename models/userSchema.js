@@ -53,16 +53,12 @@ UserSchema.statics.authenticate = function(username, password, callback) {
 
 	User.findOne({ userName: username})
 	.exec(function(err, user) {
-
 		if (err) {
 			return callback(err);
-		}
-
-		// Error for no userID
-		else if (!user) {
+		}	else if (!user) {
 			var err = new Error('No user found');
 			err.status = 401;
-			return callback('err');
+			return callback(err);
 		}
 
 		// Compare password
@@ -71,10 +67,6 @@ UserSchema.statics.authenticate = function(username, password, callback) {
 			if (result === true) {
 				return callback(null, user);
 			} else {
-
-				// Passwords didn't match
-				var err = new Error('Passwords do not match');
-				err.status = 401;
 				return callback();
 			}
 		});

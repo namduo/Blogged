@@ -9,8 +9,10 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/', function(req, res, next) {
-  if (req.body.userName && req.body.password) {
 
+  if (!req.body.userName || !req.body.password) {
+    res.send('Both Password and Username required');
+  } else {
     var userData = {
       userName: req.body.userName,
       password: req.body.password
@@ -18,7 +20,8 @@ router.post('/', function(req, res, next) {
 
     User.authenticate(userData.userName, userData.password, function(err, result) {
       if (err) {
-        return err;
+        res.send('err');
+        res.redirect('login');
       }
 
       req.session.userID = result._id;
@@ -28,6 +31,11 @@ router.post('/', function(req, res, next) {
       res.redirect('/userPage');
     });
   }
+
+  // if (req.body.userName && req.body.password) {
+
+
+
 
 });
 
