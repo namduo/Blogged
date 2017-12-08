@@ -45,8 +45,11 @@ var upload = multer({
 
 
 /* PUT /updateBlog */
-router.put('/:id', requiresLogin, function(req, res, next) {
+router.post('/', requiresLogin, function(req, res, next) {
   console.log('1');
+
+  console.log(req.body);
+  console.log(req.file);
 
   var postData = {
     userId: req.body.userId,

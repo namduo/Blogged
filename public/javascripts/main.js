@@ -10,7 +10,7 @@ $.ajax({
 
 		for (var i = 0; i < data.length; i++) {
 			// ADD BLOG PAGE
-			postListItem += '<div>';
+			postListItem += '<div class="postCard" data-_id="' + data[i]._id + '">';
 			postListItem += createImgElement(data[i].postPicture,'preview-postPicture');
 			postListItem += '<li><h3>' + data[i].postTitle + '</h3>';
 			postListItem += shortenDescription(data[i].postContent, 50);
@@ -70,8 +70,12 @@ $('body').on('click', '.editBlog', function() {
 			$('#inputTitle').val(data[0].postTitle);
 			$('#inputTextArea').text(data[0].postContent);
 			$('.actionButton').text('Update').attr('data-_id', data[0]._id);
-			$('.actionForm').attr('method', 'put');
+			$('.actionForm').attr('action', 'addBlog/update');
 			$('.actionButton').after('<button class="cancelButton">Cancel Update</button>');
+			if ($('#hidden_post_id_field').length <= 0) {
+				$('.actionForm').append('<input id="hidden_post_id_field" type="hidden" name="post_id"/>');
+			}
+			$('#hidden_post_id_field').val(ele.attr('data-_id'));
 
 		},
 		error: function(error){
@@ -82,34 +86,43 @@ $('body').on('click', '.editBlog', function() {
 });
 
 // UPDATE BUTTON
-$('body').on('click', '.actionButton', function() {
-	var ele = $(this);
-
-	$.ajax('/API_updateBlog/' + ele.attr('data-_id'), {
-		method: "PUT",
-		success: function(data){
-
-			// UPDATE BLOG PAGE
-			var postListItem = '<div>';
-			postListItem += createImgElement(data[0].postPicture,'preview-postPicture');
-			postListItem += '<li><h3>' + data[0].postTitle + '</h3>';
-			postListItem += shortenDescription(data[0].postContent, 50);
-			postListItem += createPElement(data[0].published);
-			postListItem += '</li><a href="#" class="removeBlog" data-_id="' + data[0]._id + '">Delete</a><a href="#" class="editBlog" data-_id="' + data[0]._id + '">Edit</a></div>';
-
-			$('#inputTitle').val('');
-			$('#inputTextArea').text('');
-			$('.actionButton').text('Add');
-			$('.removeBlog').attr('method', 'post');
-			$('.cancelButton').remove();
-
-		},
-		error: function(error){
-			console.log('error: ' + error)
-		}
-	});
-
-});
+// $('body').on('click', '.actionButton', function(e) {
+// 	e.preventDefault();
+// 	var ele = $(this);
+//
+//
+// 	$.ajax('/API_updateBlog/' + ele.attr('data-_id'), {
+// 		method: "POST",
+// 		data: {
+//
+// 		},
+// 		success: function(data){
+//
+// 			// UPDATE BLOG PAGE
+// 			var postListItem = '<div class="postCard" data-_id="' + data[0]._id + '">';
+// 			postListItem += createImgElement(data[0].postPicture,'preview-postPicture');
+// 			postListItem += '<li><h3>' + data[0].postTitle + '</h3>';
+// 			postListItem += shortenDescription(data[0].postContent, 50);
+// 			postListItem += createPElement(data[0].published);
+// 			postListItem += '</li><a href="#" class="removeBlog" data-_id="' + data[0]._id + '">Delete</a><a href="#" class="editBlog" data-_id="' + data[0]._id + '">Edit</a></div>';
+//
+// 			$(postListItem).insertAfter('.postCard[data-_id="' + data[0]._id + '"]');
+// 			$('.postCard[data-_id="' + data[0]._id + '"]').remove();
+// 			//appendData('#user-post-list', postListItem);
+//
+// 			$('#inputTitle').val('');
+// 			$('#inputTextArea').text('');
+// 			$('.actionButton').text('Add');
+// 			$('.removeBlog').attr('method', 'post');
+// 			$('.cancelButton').remove();
+//
+// 		},
+// 		error: function(error){
+// 			console.log('error: ' + error)
+// 		}
+// 	});
+//
+// });
 
 // CANCEL EDIT BUTTON
 $('body').on('click', '.cancelButton', function() {

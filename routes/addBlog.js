@@ -46,6 +46,8 @@ var upload = multer({
 // BLOG POST FORM
 router.post('/', upload, function(req, res, next) {
 
+  console.log(req.body);
+
   // NO IMAGE
   if (!req.file) {
     req.file = {};
@@ -72,6 +74,49 @@ router.post('/', upload, function(req, res, next) {
     }
   });
 
+});
+
+router.post('/:update', upload, function(req, res, err) {
+
+  // NO IMAGE
+  if (!req.file) {
+    req.file = {};
+    req.file.filename = '';
+  }
+
+  console.log('1');
+
+  console.log(req.body);
+  console.log(req.file);
+
+  var postData = {
+    userId: req.body.userId,
+    userName: req.body.userName,
+    userEmail: req.body.userEmail,
+    postPicture: req.file.filename,
+    postTitle: req.body.postTitle,
+    postContent: req.body.postContent
+  }
+
+  console.log('2 ' + postData);
+
+  if (err) {
+    var err = new Error('Loggin required');
+    res.send(err);
+    return err;
+  } else {
+
+    console.log('3');
+
+    // DATA BASE QUERY
+    Post.findOneAndUpdate(postData, { _id: req.body.post_id } )
+    .exec(function(err, posts) {
+      if (err) return next(err);
+      res.redirect('/addBlog');
+    });
+
+    console.log('4');
+  }
 });
 
 
