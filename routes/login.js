@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 
   if (!req.body.userName || !req.body.password) {
-    res.send('Both Password and Username required');
+    res.redirect('login');
   } else {
     var userData = {
       userName: req.body.userName,
@@ -19,16 +19,18 @@ router.post('/', function(req, res, next) {
     }
 
     User.authenticate(userData.userName, userData.password, function(err, result) {
+      console.log(err);
       if (err) {
-        res.send('err');
         res.redirect('login');
+      } else {
+        req.session.userID = result._id;
+        req.session.userName = result.userName;
+        req.session.userEmail = result.email;
+        req.session.loggedIn = true;
+        res.redirect('/userPage');
       }
 
-      req.session.userID = result._id;
-      req.session.userName = result.userName;
-      req.session.userEmail = result.email;
-      req.session.loggedIn = true;
-      res.redirect('/userPage');
+
     });
   }
 
