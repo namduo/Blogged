@@ -5,14 +5,15 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <div class="container">
 
-      <div class="row ta-center">
+    <div class="container flex-container ta-center">
+
+      <div class="row">
         <h1><%= title %></h1>
         <p>Welcome to <%= title %></p>
       </div>
 
-      <div class="row align-center">
+      <div class="row">
         <form method="post">
           <input class="" type="text" name="userName" placeholder="Username">
           <input class="" type="password" name="password" placeholder="Password">
@@ -20,7 +21,7 @@
         </form>
       </div>
 
-      <div class="row ta-center">
+      <div class="row">
         <a class="link" href="/register">Not registered?</a>
         <a class="link" href="/">Home</a>
       </div>

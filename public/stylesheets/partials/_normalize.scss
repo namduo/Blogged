@@ -24,8 +24,14 @@ html {
 
 body {
   margin: 0;
-	box-sizing: border-box;
+  padding: 0;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+
 
 /**
  * Add the correct display in IE 9-.

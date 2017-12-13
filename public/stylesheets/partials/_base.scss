@@ -1,0 +1,128 @@
+
+
+// FORM
+form > button {
+	margin: auto;
+}
+
+form > * {
+	display: block;
+}
+
+form > input {
+	margin-bottom: 0.5em;
+}
+
+#submit {
+	margin-bottom: 1em;
+}
+
+input::placeholder {
+  text-align: center;
+}
+
+// LAYOUT
+
+.container {
+	width: 100%;
+	border: dashed #00C8FF 1px;
+}
+.row {
+	padding: 1em;
+	width: 100%;
+	max-width: 960px;
+	border: dashed #00C8FF 1px;
+}
+
+.ta-center {
+	text-align: center;
+}
+
+// FONT
+
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,700|Roboto:300,400,700');
+
+body {
+	font-family: 'Raleway', sans-serif;
+}
+
+h1, h2 {
+	font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+	font-weight: 400;
+	font-size: 1.5em;
+}
+
+h2 {
+	font-weight: 400;
+	font-size: 1.2em;
+}
+
+
+
+
+// BUTTON
+
+.btn {
+	color: #FFFFFF;
+	text-decoration: none;
+	border: solid #FFFFFF 0.6px;
+	background-color: #f39c12;
+	padding: 0.5em 1em;
+	margin: 0.5em;
+	border-radius: 2.5px;
+	max-width: 360px;
+}
+
+.btn:hover {
+	background-color: #f1c40f;
+	transition: 0.2s;
+}
+
+
+// GRID / FLEX
+
+.grid-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+  justify-content: center;
+	flex-direction: column;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
